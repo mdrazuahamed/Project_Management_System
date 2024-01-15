@@ -53,7 +53,6 @@ public class Project {
 
     public Project projectBuild(int number){
         Project project = new Project("Hydra Tile");
-
         Team dv = new Team(TeamName.designVerification);
         Team rtl = new Team(TeamName.rtlDesign);
         Team packaging = new Team(TeamName.packaging);
@@ -65,35 +64,35 @@ public class Project {
         Task bga = new Task("Ball Grid Array Design");
 
         Member akash = new Member("Akash Rahman",fixBugOnVerilog,rtl,project);
-        this.memberList.add(akash);
+        memberList.add(akash);
         Member nakib = new Member("Nakibur Rahman",fixBugOnVerilog,rtl,project);
-        this.memberList.add(nakib);
+        memberList.add(nakib);
         Member reyad = new Member("Reyad Ahamed",fixErrorFromTestBench,dv,project);
-        this.memberList.add(reyad);
+        memberList.add(reyad);
         Member foez = new Member("Foez Ahamed",fixErrorFromTestBench,dv,project);
-        this.memberList.add(foez);
+        memberList.add(foez);
 
         Member safi = new Member("Ataus Safi");
         safi.setTask(removeLvsAfterRouting);
         safi.setTeam(pd);
         safi.setProject(project);
-        this.memberList.add(safi);
+        memberList.add(safi);
 
         Member khadiza = new Member("Khadiza Fariha",removeLvsAfterRouting,pd,project);
-        this.memberList.add(khadiza);
+        memberList.add(khadiza);
 
         Member babul = new Member("Muntasir babul");
         babul.setTask(removeLvsAfterRouting);
         babul.setTeam(pd);
         babul.setProject(project);
-        this.memberList.add(babul);
+        memberList.add(babul);
 
         Member rafi = new Member("Rubait Rafi",bga,packaging,project);
-        this.memberList.add(rafi);
+        memberList.add(rafi);
         Member rifa = new Member("Rifa Mist",bga,packaging,project);
-        this.memberList.add(rifa);
+        memberList.add(rifa);
         Member sohid = new Member("Sohid Ahamed",bga,packaging,project);
-        this.memberList.add(sohid);
+        memberList.add(sohid);
 
         fixBugOnVerilog.addMember(nakib);
         fixBugOnVerilog.addMember(akash);
@@ -123,16 +122,16 @@ public class Project {
         }
         if (number==2){
             project.addMemberInProject(project);
-            memberDetail(this.memberList);
+            project.sliceMemberList(memberList);
         }
         if(number == 3){
-            memberDetail(this.memberList);
+            project.sliceMemberList(memberList);
         }
         return project;
 
     }
 
-    public void memberDetail(List<Member> memberList){
+    public void sliceMemberList(List<Member> memberList){
         Scanner memberNameInput = new Scanner(System.in);
         for(Member member : memberList){
             System.out.println(member.getMemberName());
@@ -141,9 +140,7 @@ public class Project {
         String memberName = memberNameInput.nextLine();
         for (Member member : memberList){
             if(Objects.equals(memberName.toLowerCase(),member.getMemberName().toLowerCase())){
-                System.out.println("Project Name: "+member.getProject().projectName);
-                System.out.println("\nTeam Name: "+member.getTeam().getTeamName());
-                System.out.println("\nTask name: "+member.getTask().getTaskName());
+            member.memberDetail(member);
             }
         }
     }
