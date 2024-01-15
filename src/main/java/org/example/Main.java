@@ -16,14 +16,6 @@ public class Main {
 
       else if(selectAddOrShow==2) {
         project = project.projectBuild(2);
-        project.addMemberInProject(project);
-        System.out.println("Press 1 for see Project Detail after add New member\n Press 2 to see Member Name List");
-        int showProjectOrMember = userInput.nextInt();
-
-        if(showProjectOrMember==1)
-            project.showProjectDetail(project);
-        else if(showProjectOrMember==2)
-          project = project.projectBuild(3);
       }
 
       else if(selectAddOrShow==3){

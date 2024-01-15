@@ -5,6 +5,7 @@ import java.util.*;
 public class Project {
     private String projectName;
     private List<Team> teamList = new ArrayList<>();
+    private static List<Member> memberList = new ArrayList<>();
 
     public Project(){
     }
@@ -50,18 +51,13 @@ public class Project {
         }
     }
 
-    public void memberDetail(Member member){
-
-    }
     public Project projectBuild(int number){
         Project project = new Project("Hydra Tile");
-        Scanner memberNameInput = new Scanner(System.in);
 
         Team dv = new Team(TeamName.designVerification);
         Team rtl = new Team(TeamName.rtlDesign);
         Team packaging = new Team(TeamName.packaging);
         Team pd = new Team(TeamName.physicalDesign);
-        List<Member> memberList = new ArrayList<>();
 
         Task fixBugOnVerilog = new Task("Fix Bug From verilog");
         Task fixErrorFromTestBench = new Task("Fix Error From Testbench");
@@ -69,35 +65,35 @@ public class Project {
         Task bga = new Task("Ball Grid Array Design");
 
         Member akash = new Member("Akash Rahman",fixBugOnVerilog,rtl,project);
-        memberList.add(akash);
+        this.memberList.add(akash);
         Member nakib = new Member("Nakibur Rahman",fixBugOnVerilog,rtl,project);
-        memberList.add(nakib);
+        this.memberList.add(nakib);
         Member reyad = new Member("Reyad Ahamed",fixErrorFromTestBench,dv,project);
-        memberList.add(reyad);
+        this.memberList.add(reyad);
         Member foez = new Member("Foez Ahamed",fixErrorFromTestBench,dv,project);
-        memberList.add(foez);
+        this.memberList.add(foez);
 
         Member safi = new Member("Ataus Safi");
         safi.setTask(removeLvsAfterRouting);
         safi.setTeam(pd);
         safi.setProject(project);
-        memberList.add(safi);
+        this.memberList.add(safi);
 
         Member khadiza = new Member("Khadiza Fariha",removeLvsAfterRouting,pd,project);
-        memberList.add(khadiza);
+        this.memberList.add(khadiza);
 
         Member babul = new Member("Muntasir babul");
         babul.setTask(removeLvsAfterRouting);
         babul.setTeam(pd);
         babul.setProject(project);
-        memberList.add(babul);
+        this.memberList.add(babul);
 
         Member rafi = new Member("Rubait Rafi",bga,packaging,project);
-        memberList.add(rafi);
+        this.memberList.add(rafi);
         Member rifa = new Member("Rifa Mist",bga,packaging,project);
-        memberList.add(rifa);
+        this.memberList.add(rifa);
         Member sohid = new Member("Sohid Ahamed",bga,packaging,project);
-        memberList.add(sohid);
+        this.memberList.add(sohid);
 
         fixBugOnVerilog.addMember(nakib);
         fixBugOnVerilog.addMember(akash);
@@ -125,25 +121,35 @@ public class Project {
         if(number == 1){
             showProjectDetail(project);
         }
+        if (number==2){
+            project.addMemberInProject(project);
+            memberDetail(this.memberList);
+        }
         if(number == 3){
-            for(Member member : memberList){
-                System.out.println(member.getMemberName());
-            }
-            System.out.println("Write a name to see detail");
-            String memberName = memberNameInput.nextLine();
-            for (Member member : memberList){
-                if(Objects.equals(memberName.toLowerCase(),member.getMemberName().toLowerCase())){
-                    System.out.println("Project Name: "+member.getProject().projectName);
-                    System.out.println("\nTeam Name: "+member.getTeam().getTeamName());
-                    System.out.println("\nTask name: "+member.getTask().getTaskName());
-                }
-            }
+            memberDetail(this.memberList);
         }
         return project;
 
     }
 
+    public void memberDetail(List<Member> memberList){
+        Scanner memberNameInput = new Scanner(System.in);
+        for(Member member : memberList){
+            System.out.println(member.getMemberName());
+        }
+        System.out.println("Write a name to see detail");
+        String memberName = memberNameInput.nextLine();
+        for (Member member : memberList){
+            if(Objects.equals(memberName.toLowerCase(),member.getMemberName().toLowerCase())){
+                System.out.println("Project Name: "+member.getProject().projectName);
+                System.out.println("\nTeam Name: "+member.getTeam().getTeamName());
+                System.out.println("\nTask name: "+member.getTask().getTaskName());
+            }
+        }
+    }
+
     public void addMemberInProject(Project project){
+        //memberDetail(memberList);
         System.out.println("Please Type New Member Name:");
         Scanner memberNameUserInput = new Scanner(System.in);
         String memberName;
@@ -169,16 +175,28 @@ public class Project {
             for (Task task : team.getTaskList()) {
                 taskSelect++;
                 if(Objects.equals(numberToTask,taskSelect)){
+                    newMember.setTask(task);
+                    newMember.setTeam(team);
+                    newMember.setProject(project);
                     task.addMember(newMember);
+                    this.memberList.add(newMember);
+
                 }
             }
         }
+        System.out.println(" Press 1 for see Project Detail after add New member\n Press other key to see Member Name List");
+        int showProjectOrMember = userInput.nextInt();
+
+        if(showProjectOrMember==1)
+            project.showProjectDetail(project);
     }
+
     @Override
     public String toString() {
         return "Project{" +
                 "projectName='" + projectName + '\'' +
                 ", teamList=" + teamList +
+                ", memberList=" + memberList +
                 '}';
     }
 }
