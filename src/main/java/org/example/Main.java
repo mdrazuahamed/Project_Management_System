@@ -7,17 +7,27 @@ public class Main {
       Scanner userInput = new Scanner(System.in);
       int selectAddOrShow;
       Project project = new Project();
-      project = project.projectBuild();
-      System.out.println(" Press 1 for See the Project Information\n Press 2 for add member on project ");
+      System.out.println(" Press 1 for See the Project Information\n Press 2 for add member on project\n Press 3 to get existing member list ");
       selectAddOrShow = userInput.nextInt();
 
       if(selectAddOrShow==1){
-        project.showProjectDetail(project);
+        project = project.projectBuild(1);
       }
-      else if (selectAddOrShow==2) {
+
+      else if(selectAddOrShow==2) {
+        project = project.projectBuild(2);
         project.addMemberInProject(project);
-        System.out.println("Project Detail after add New member");
-        project.showProjectDetail(project);
+        System.out.println("Press 1 for see Project Detail after add New member\n Press 2 to see Member Name List");
+        int showProjectOrMember = userInput.nextInt();
+
+        if(showProjectOrMember==1)
+            project.showProjectDetail(project);
+        else if(showProjectOrMember==2)
+          project = project.projectBuild(3);
+      }
+
+      else if(selectAddOrShow==3){
+        project = project.projectBuild(3);
       }
     }
 

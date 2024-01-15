@@ -50,29 +50,54 @@ public class Project {
         }
     }
 
-    public Project projectBuild(){
+    public void memberDetail(Member member){
+
+    }
+    public Project projectBuild(int number){
         Project project = new Project("Hydra Tile");
+        Scanner memberNameInput = new Scanner(System.in);
 
         Team dv = new Team(TeamName.designVerification);
         Team rtl = new Team(TeamName.rtlDesign);
         Team packaging = new Team(TeamName.packaging);
         Team pd = new Team(TeamName.physicalDesign);
+        List<Member> memberList = new ArrayList<>();
 
         Task fixBugOnVerilog = new Task("Fix Bug From verilog");
         Task fixErrorFromTestBench = new Task("Fix Error From Testbench");
         Task removeLvsAfterRouting = new Task("Remove Lvs After Routing");
         Task bga = new Task("Ball Grid Array Design");
 
-        Member akash = new Member("Akash Rahman");
-        Member reyad = new Member("Reyad Ahamed");
-        Member nakib = new Member("Nakibur Rahman");
-        Member foez = new Member("Foez Ahamed");
+        Member akash = new Member("Akash Rahman",fixBugOnVerilog,rtl,project);
+        memberList.add(akash);
+        Member nakib = new Member("Nakibur Rahman",fixBugOnVerilog,rtl,project);
+        memberList.add(nakib);
+        Member reyad = new Member("Reyad Ahamed",fixErrorFromTestBench,dv,project);
+        memberList.add(reyad);
+        Member foez = new Member("Foez Ahamed",fixErrorFromTestBench,dv,project);
+        memberList.add(foez);
+
         Member safi = new Member("Ataus Safi");
-        Member khadiza = new Member("Khadiza Fariha");
+        safi.setTask(removeLvsAfterRouting);
+        safi.setTeam(pd);
+        safi.setProject(project);
+        memberList.add(safi);
+
+        Member khadiza = new Member("Khadiza Fariha",removeLvsAfterRouting,pd,project);
+        memberList.add(khadiza);
+
         Member babul = new Member("Muntasir babul");
-        Member rafi = new Member("Rubait Rafi");
-        Member rifa = new Member("Rifa Mist");
-        Member sohid = new Member("Sohid Ahamed");
+        babul.setTask(removeLvsAfterRouting);
+        babul.setTeam(pd);
+        babul.setProject(project);
+        memberList.add(babul);
+
+        Member rafi = new Member("Rubait Rafi",bga,packaging,project);
+        memberList.add(rafi);
+        Member rifa = new Member("Rifa Mist",bga,packaging,project);
+        memberList.add(rifa);
+        Member sohid = new Member("Sohid Ahamed",bga,packaging,project);
+        memberList.add(sohid);
 
         fixBugOnVerilog.addMember(nakib);
         fixBugOnVerilog.addMember(akash);
@@ -97,7 +122,23 @@ public class Project {
         project.addTeam(rtl);
         project.addTeam(packaging);
         project.addTeam(pd);
-
+        if(number == 1){
+            showProjectDetail(project);
+        }
+        if(number == 3){
+            for(Member member : memberList){
+                System.out.println(member.getMemberName());
+            }
+            System.out.println("Write a name to see detail");
+            String memberName = memberNameInput.nextLine();
+            for (Member member : memberList){
+                if(Objects.equals(memberName.toLowerCase(),member.getMemberName().toLowerCase())){
+                    System.out.println("Project Name: "+member.getProject().projectName);
+                    System.out.println("\nTeam Name: "+member.getTeam().getTeamName());
+                    System.out.println("\nTask name: "+member.getTask().getTaskName());
+                }
+            }
+        }
         return project;
 
     }

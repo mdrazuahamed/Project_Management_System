@@ -14,9 +14,9 @@ public class Member {
 
     public Member(String memberName, Task task, Team team, Project project) {
         this.memberName = memberName;
-        this.task = task;
-        this.team = team;
-        this.project = project;
+        setTask(task);
+        setTeam(team);
+        setProject(project);
     }
 
     public String getMemberName() {
@@ -51,6 +51,9 @@ public class Member {
         this.project = project;
     }
 
+    public void getMemberInformation(Member member){
+        System.out.println(member);
+    }
     @Override
     public String toString() {
         return "Member{" +
