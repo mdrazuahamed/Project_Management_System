@@ -55,6 +55,7 @@ public class Member {
     public void getMemberInformation(Member member){
         System.out.println(member);
     }
+
     public void memberDetail(Member member){
                 System.out.println("Project Name: "+member.getProject().getProjectName());
                 System.out.println("\nTeam Name: "+member.getTeam().getTeamName());

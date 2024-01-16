@@ -5,10 +5,7 @@ import java.util.*;
 public class Project {
     private String projectName;
     private List<Team> teamList = new ArrayList<>();
-    //private static List<Member> memberList = new ArrayList<>();
 
-    public Project(){
-    }
     public Project(String projectName){
         this.projectName = projectName;
     }
