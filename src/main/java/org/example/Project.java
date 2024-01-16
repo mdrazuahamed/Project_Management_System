@@ -122,13 +122,11 @@ public class Project {
         }
         if (number==2){
             project.addMemberInProject(project);
-            project.sliceMemberList(memberList);
         }
         if(number == 3){
             project.sliceMemberList(memberList);
         }
         return project;
-
     }
 
     public void sliceMemberList(List<Member> memberList){
@@ -184,8 +182,10 @@ public class Project {
         System.out.println(" Press 1 for see Project Detail after add New member\n Press other key to see Member Name List");
         int showProjectOrMember = userInput.nextInt();
 
-        if(showProjectOrMember==1)
+        if(showProjectOrMember == 1)
             project.showProjectDetail(project);
+        else if(showProjectOrMember == 2)
+            project.sliceMemberList(memberList);
     }
 
     @Override
