@@ -14,9 +14,8 @@ public class Member {
         this.memberName = memberName;
     }
 
-    public Member(String memberName, Task task, Team team, Project project) {
+    public Member(String memberName, Team team, Project project) {
         this.memberName = memberName;
-        setTask(task);
         setTeam(team);
         setProject(project);
     }
