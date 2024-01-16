@@ -44,6 +44,7 @@ public class Team {
 
     public void addTask(Task task){
         taskList.add(task);
+        task.setTeam(this);
     }
 
     @Override
